@@ -1,0 +1,112 @@
+{% load static %}
+{% include 'navigation.html' %}
+{% block body %}
+<style>
+	.card{
+		border:1px solid #198754;
+		margin-bottom:15px;
+	}
+	.card:hover{
+		box-shadow: 2px 2px 15px 5px rgba(25,135,84,0.6);
+		transition:0.3s ease-in; 
+	}
+	.bpstatus{
+		font-size: 18px;
+		font-weight: bold;
+		float: right;
+		margin-top: 5px;
+	}
+	header{
+		background:url({% static 'images/image1.jpg' %});
+		width: 100%;
+		height: 470px;
+		background-size: cover;
+		background-position: center center;
+		margin-top: 0.5%;
+	}
+	.transp{
+		width: 100%;
+		height: 470px;
+		background-color: lightgrey;
+		opacity: 0.5;
+		border:1px solid #198754;
+	}
+	.transp p{
+		text-align: center;
+		font-size: 60px;
+		font-weight: bold;
+		font-family: Monotype Corsiva;
+		margin-top: 14%;
+		color: #198754;
+	}
+</style>
+<header>
+	<div class="transp">
+		<p>Online Blogs Posting Site</p>
+	</div>
+</header>
+	<div class="container my-2">
+		<h1 class="text-center">Blogs</h1>
+		<!--<form action="" method="POST">
+		{% csrf_token %}
+			<div class="form-group">
+				<input type="search" placeholder="Search Blogs By Title..." name="searchblog" class="form-control my-3" style="border:1px solid rgb(25,135,84);">
+			</div>
+		</form>-->
+		<div class="row">
+			{% for pb in blogs %}
+			<div class="col-sm-4">
+				<div class="card">
+					<img src="{{pb.image.url}}" alt="" class="bd-placeholder-img card-img-top" width="100%" height="250" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-sm-6">
+								<p class="text-secondary">Dated | {{pb.created_date}}</p>
+							</div>
+						</div>
+						<h4 class="card-title">{{pb.title}}</h4>
+						<p><span style="font-weight:bold;">Created By</span> | <span class="text-secondary">{{pb.user.user.first_name}} {{pb.user.user.last_name}}</span></p>
+                		<p class="card-text">{{pb.introduction}} <span style="display:none;">{{pb.description}}</span></p>
+					</div>
+					<div class="card-footer">
+						<a href="{% url 'blog_details' pb.id %}" class="btn btn-success" style="float:left;">Continue Reading</a>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+
+		
+		{% if blogs.has_other_pages %}
+			<ul class="pagination pagination-md flex-wrap" style="float:right;">
+				{% if blogs.has_previous %}
+					<li class="page-item">
+						<a class="page-link" href="{% url 'index' %}?page={{blogs.previous_page_number}}">Previous</a>
+					</li>
+				{% else %}
+					<li class="page-item disabled">
+						<a class="page-link" aria-disabled="fasle">Previous</a>
+					</li>
+				{% endif %}
+				{% for i in blogs.paginator.page_range %}
+					{% if blogs.number == i %}
+						<li class="page-item active" aria-current="page">
+							<a class="page-link">{{i}} <span class="visually-hidden">(current)</span></a>
+						</li>
+					{% else %}
+						<li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+					{% endif %}
+				{% endfor %}
+				{% if blogs.has_next %}
+					<li class="page-item">
+						<a class="page-link" href="{% url 'index' %}?page={{blogs.next_page_number}}">Next</a>
+					</li>
+				{% else %}
+					<li class="page-item disabled">
+						<a class="page-link" aria-disabled="false">Next</a>
+					</li>
+				{% endif %}
+			</ul>
+		{% endif %}	
+	</div>
+{% endblock %}

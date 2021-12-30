@@ -1,0 +1,48 @@
+{% load static %}
+{% include 'admin_navigation.html' %}
+{% block body %}
+<style>
+    .card{
+        background: linear-gradient(60deg, #198754,#fff);
+        color:#fff;
+        margin-top:20px;
+        border-left:5px solid lightgrey;
+    }
+    .card:hover{
+        box-shadow:2px 2px 15px 5px rgba(25,135,84,0.6);
+        transition:0.5s ease-in;
+    }
+    .msg_headings{
+		font-size:18px;font-weight:bold;color:#fff;
+	}
+	.msg_msgs{
+		font-size: 20px;
+		font-weight: normal;
+		color:black;
+	}
+</style>
+    <div class="container">
+        <h1 class="text-center">All Message</h1>
+        <div class="row">
+        {% for msg in msgs %}
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <span class="msg_headings">
+						Name:
+						<span class="msg_msgs">{{msg.sender_name}}</span>
+						<a href="{% url 'admin_deletemsgs' msg.id %}" style="float:right; color:#198754;"  onclick="return confirm('Are you sure to delete?')"><i class="fas fa-trash"></i></a> 
+                        </span><br>
+                        <span class="msg_headings">Email: 
+                            <span class="msg_msgs">{{msg.sender_email}}</span>
+                        </span><br>
+                        <span class="msg_headings">Message: <br>
+                            <span class="msg_msgs">{{msg.sender_message}}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% load static %}
+{% include 'navigation.html' %}
+{% block body %}
+<style>
+	header{
+		background:url({% static 'images/contact.png' %});
+		width: 100%;
+		height: 470px;
+		background-size: cover;
+		background-position: center center;
+		margin-top: 0.5%;
+	}
+	.transp{
+		width: 100%;
+		height: 470px;
+		background-color: lightgrey;
+		opacity: 0.5;
+		border:1px solid #198754;
+	}
+	.transp p{
+		text-align: center;
+		font-size: 60px;
+		font-weight: bold;
+		font-family: Monotype Corsiva;
+		margin-top: 14%;
+		color: #198754;
+	}
+    .card{
+		border:1px solid #198754;
+	}
+	.card:hover{
+		box-shadow: 2px 2px 15px 5px rgba(25,135,84,0.6);
+		transition:0.3s ease-in; 
+	}
+</style>
+<header>
+	<div class="transp">
+		<p>Online Blogs Posting Site | Contact Us</p>
+	</div>
+</header>
+	<div class="container my-2">
+		<h1 class="text-center">Contact Us</h1>
+            <div class="row">
+			<div class="col-sm-6" style="margin:2rem auto;">
+				<div class="card">
+					<form method="POST">
+						{% csrf_token %}
+						<div class="card-body">
+							<div class="form-group">
+								<label><strong>Email ID</strong></label>
+								<input type="text" class="form-control" name="email" placeholder="Enter email...">
+							</div>
+							<div class="form-group">
+								<label><strong>Name</strong></label>
+								<input type="text" class="form-control" name="uname" placeholder="Enter name...">
+							</div>
+                            <div class="form-group">
+								<label><strong>Message</strong></label>
+								<textarea name="msg" cols="5" rows="5" class="form-control" placeholder="Enter message here..."></textarea>
+							</div>
+						</div>
+						<div class="card-footer">
+							<input type="submit" class="btn btn-success" value="Send Message">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+    </div>
+
+    {% ifequal error "no" %}
+		<script>
+			alert('Message Has Been Sent Successfully!!!');
+			window.location = ('{% url 'index' %}');
+		</script>
+	{% endifequal %}
+
+	{% ifequal error "yes" %}
+		<script>
+			alert('Incalid User Credentials. Try Again!!!');
+		</script>
+	{% endifequal %}
+{% endblock %}

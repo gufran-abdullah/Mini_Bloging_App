@@ -1,0 +1,81 @@
+{% load static %}
+{% block body %}
+{% include 'admin_navigation.html' %}
+<link rel="stylesheet" type="text/css" href="{% static "datatable/datatables.min.css" %}"/>
+<script type="text/javascript" src="{% static "datatable/datatables.min.js" %}"></script>
+<style>
+	.table_head{
+		background: #198754;
+		color: #fff;
+	}
+	.del_icon{
+		color: #198754;
+		font-size: 20px;
+		margin-left: 5px;
+	}
+	.del_icon:hover{
+		color: red;
+	}
+	.btn-group{
+		position: relative;
+		top: 32px;
+	}
+	.buttons-html5,.buttons-print{
+		background: #198754;
+		color: #fff;
+		border:none;
+	}
+	.buttons-html5:hover,.buttons-print:hover{
+		background: #198754;
+		color: #fff;
+	}
+	.dataTables_length{
+		position: relative;
+		top: 20px;
+	}
+</style>
+<div class="container">
+    <h1 class="text-center">Rejected Blogs</h1>
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-hover" id="example">
+	<thead>
+		<tr class="table_head">
+			<th>Sr.#</th>
+			<th>Blog Title</th>
+			<th>Created By</th>
+			<th>Created Date</th>
+			<th>Status</th>
+            <th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for bd in blog_data %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+            <td>{{bd.title}}</td>
+			<td>{{bd.user.user.first_name}} {{bd.user.user.last_name}}</td>
+			<td>{{bd.created_date}}</td>
+			<td class="text-danger"><strong>{{bd.status}}</strong></td>
+			<td>
+				<a href="{% url 'admin_changestatus' bd.id %}" class="del_icon"><i class="fas fa-door-open"></i></a>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+		</div>
+	</div>
+
+</div>
+<script>
+	$(document).ready(function(){
+	$('#example').DataTable({
+		dom: 'lBfrtip',
+		buttons: [
+			'copy','csv','excel','pdf','print'
+		]
+	});
+	});
+</script>
+{% endblock %}

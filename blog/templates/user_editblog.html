@@ -1,0 +1,84 @@
+{% load static %}
+{% include 'user_navigation.html' %}
+{% block body %}
+<style>
+	.card{
+		border:1px solid #198754;
+	}
+	.card:hover{
+		box-shadow: 2px 2px 15px 5px rgba(25,135,84,0.6);
+		transition:0.3s ease-in; 
+	}
+	.bpuimg{
+		width: 100px;
+		height: 100px;
+		border-radius: 100%;
+	}
+	.bpstatus{
+		font-size: 18px;
+		font-weight: bold;
+		float: right;
+		margin-top: 5px;
+	}
+</style>
+	<div class="container">
+		<h1 class="text-center">Update Blog</h1>
+		<div class="row">
+			<div class="col-sm-6" style="margin:0.5rem auto;">
+				<div class="card">
+					<form method="POST" enctype="multipart/form-data">
+						{% csrf_token %}
+						<div class="card-body">
+							<div class="form-group">
+								<label><strong>Title</strong></label>
+								<input type="text" class="form-control" name="btitle" value="{{posted_blog.title}}">
+							</div>
+							<div class="form-group">
+								<label><strong>Introduction</strong></label>
+								<textarea name="bintro" class="form-control" cols="4" rows="2">{{posted_blog.introduction}}</textarea>
+							</div>
+							<div class="form-group">
+								<label><strong>Description</strong></label>
+								<textarea name="bdesc" class="form-control" cols="10" rows="10">{{posted_blog.description}}</textarea>
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-8 mt-3">
+										<label><strong>Image</strong></label>
+										<input type="file" class="form-control" name="bimage" accept="image/*">
+									</div>
+									<div class="col-sm-4 text-center mt-3">
+										<img src="{{posted_blog.image.url}}" alt="Blog Update Image" class="bpuimg">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer">
+							<input type="submit" class="btn btn-success" value="Update Blog">
+							{% if posted_blog.status == "Pending" %}
+							<span class="text-warning bpstatus">{{posted_blog.status}}</span>
+							{% elif posted_blog.status == "Accepted"%}
+							<span class="text-success bpstatus">{{posted_blog.status}}</span>
+							{% else %}
+							<span class="text-danger bpstatus">{{posted_blog.status}}</span>
+							{% endif %}
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% ifequal error "no" %}
+		<script>
+			alert('Blog Updated Successfully!!!');
+			window.location = ('{% url 'user_blogdetail' posted_blog.id %}');
+		</script>
+	{% endifequal %}
+
+	{% ifequal error "yes" %}
+		<script>
+			alert('Something Went Wrong. Try Again!!!');
+		</script>
+	{% endifequal %}
+{% endblock %}

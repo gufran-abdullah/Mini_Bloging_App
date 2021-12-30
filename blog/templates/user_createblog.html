@@ -1,0 +1,65 @@
+{% load static %}
+{% include 'user_navigation.html' %}
+{% block body %}
+<style>
+	.card{
+		border:1px solid #198754;
+	}
+	.card:hover{
+		box-shadow: 2px 2px 15px 5px rgba(25,135,84,0.6);
+		transition:0.3s ease-in; 
+	}
+</style>
+	<div class="container">
+		<h1 class="text-center">Create Blogs</h1>
+		<div class="row">
+			<div class="col-sm-6" style="margin:0.5rem auto;">
+				<div class="card">
+					<form method="POST" enctype="multipart/form-data">
+						{% csrf_token %}
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label><strong>Title</strong></label>
+										<input type="text" class="form-control" name="btitle" placeholder="Enter title...">
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label><strong>Introduction</strong></label>
+										<input type="text" class="form-control" name="bintro" placeholder="Enter introduction...">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label><strong>Description</strong></label>
+								<textarea name="bdesc" class="form-control" cols="10" rows="5" placeholder="Enter description..."></textarea>
+							</div>
+							<div class="form-group">
+								<label><strong>Image</strong></label>
+								<input type="file" class="form-control" name="bimage" accept="image/*">
+							</div>
+						</div>
+						<div class="card-footer">
+							<input type="submit" class="btn btn-success" value="Create Blog">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% ifequal error "no" %}
+		<script>
+			alert('Blog Created Successfully!!!');
+			window.location = ('{% url 'user_viewblogs' %}');
+		</script>
+	{% endifequal %}
+
+	{% ifequal error "yes" %}
+		<script>
+			alert('Incalid User Credentials. Try Again!!!');
+		</script>
+	{% endifequal %}
+{% endblock %}

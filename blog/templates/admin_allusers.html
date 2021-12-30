@@ -1,0 +1,85 @@
+{% load static %}
+{% block body %}
+{% include 'admin_navigation.html' %}
+<link rel="stylesheet" type="text/css" href="{% static "datatable/datatables.min.css" %}"/>
+<script type="text/javascript" src="{% static "datatable/datatables.min.js" %}"></script>
+<style>
+	.table_head{
+		background: #198754;
+		color: #fff;
+	}
+	.del_icon{
+		color: #198754;
+		font-size: 20px;
+		margin-left: 20px;
+	}
+	.del_icon:hover{
+		color: red;
+	}
+	.btn-group{
+		position: relative;
+		top: 32px;
+	}
+	.buttons-html5,.buttons-print{
+		background: #198754;
+		color: #fff;
+		border:none;
+	}
+	.buttons-html5:hover,.buttons-print:hover{
+		background: #198754;
+		color: #fff;
+	}
+	.dataTables_length{
+		position: relative;
+		top: 20px;
+	}
+</style>
+<div class="container">
+    <h1 class="text-center">All Users</h1>
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-hover" id="example">
+	<thead>
+		<tr class="table_head">
+			<th>Sr.#</th>
+			<th>Full Name</th>
+			<th>Email ID</th>
+			<th>Contact#</th>
+            <th>Gender</th>
+            <th>Picture</th>
+            <th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for ud in users_data %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+            <td>{{ud.user.first_name}} {{ud.user.last_name}}</td>
+            <td>{{ud.user.username}}</td>
+            <td>{{ud.contact}}</td>
+            <td>{{ud.gender}}</td>
+			<td>
+                <img src="{{ud.image.url}}" style="width:50px;height:50px;border-radius:100%;" alt="User Image">
+            </td>
+			<td>
+				<a href="{% url 'admin_deleteusers' ud.user.id %}" class="del_icon" onclick="return confirm('Are You Sure to Delete?');"><i class="fas fa-trash"></i></a>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+		</div>
+	</div>
+
+</div>
+<script>
+	$(document).ready(function(){
+	$('#example').DataTable({
+		dom: 'lBfrtip',
+		buttons: [
+			'copy','csv','excel','pdf','print'
+		]
+	});
+	});
+</script>
+{% endblock %}

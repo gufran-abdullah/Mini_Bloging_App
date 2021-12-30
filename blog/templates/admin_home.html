@@ -1,0 +1,71 @@
+{% load static %}
+{% include 'admin_navigation.html' %}
+{% block body %}
+<style>
+    .card{
+        background: linear-gradient(60deg, #198754,#fff);
+        color:#fff;
+        margin-top:20px;
+        border-left:5px solid lightgrey;
+    }
+    .card:hover{
+        box-shadow:2px 2px 15px 5px rgba(25,135,84,0.6);
+        transition:0.5s ease-in;
+    }
+</style>
+    <div class="container">
+        <h1 class="text-center">Admin Dashboard</h1>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>{{blogs}}</h4>
+                        <h3>All Blogs</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>{{pendblogs}}</h4>
+                        <h3>Pending Blogs</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                 <div class="card">
+                    <div class="card-body">
+                        <h4>{{accpblogs}}</h4>
+                        <h3>Accepted Blogs</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                 <div class="card">
+                    <div class="card-body">
+                        <h4>{{rejblogs}}</h4>
+                        <h3>Rejected Blogs</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3" >
+                <div class="card">
+                    <div class="card-body">
+                        <h4>{{users}}</h4>
+                        <h3>All Users</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3" >
+                <div class="card">
+                    <div class="card-body">
+                        <h4>{{messages}}</h4>
+                        <h3>All Messages</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

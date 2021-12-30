@@ -1,0 +1,43 @@
+{% load static %}
+{% include 'navigation.html' %}
+{% block body %}
+<style>
+	.card{
+		border:1px solid #198754;
+	}
+	.card:hover{
+		box-shadow: 2px 2px 15px 5px rgba(25,135,84,0.6);
+		transition:0.3s ease-in; 
+	}
+	.bpstatus{
+		font-size: 18px;
+		font-weight: bold;
+		float: left;
+		margin-top: 5px;
+	}
+</style>
+	<div class="container my-2">
+		<h1 class="text-center">Detailed Blog</h1>
+		<div class="row">
+			<div class="col-sm-6" style="margin:0 auto;">
+				<div class="card">
+					<img src="{{posted_blog.image.url}}" alt="" class="bd-placeholder-img card-img-top" width="100%" height="350" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-sm-6">
+								<p class="text-secondary">Dated | {{posted_blog.created_date}}</p>
+							</div>
+						</div>
+						<h4 class="card-title">{{posted_blog.title}}</h4>
+						<p><span style="font-weight:bold;">Created By</span> | <span class="text-secondary">{{posted_blog.user.user.first_name}} {{posted_blog.user.user.last_name}}</span></p>
+						<p><b>{{posted_blog.introduction}}</b></p>
+                		<p class="card-text"> {{posted_blog.description}}</p> 
+					</div>
+					<div class="card-footer">
+						<span class="text-success bpstatus">{{posted_blog.status}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

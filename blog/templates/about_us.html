@@ -1,0 +1,39 @@
+{% load static %}
+{% include 'navigation.html' %}
+{% block body %}
+<style>
+	header{
+		background:url({% static 'images/aboutus.jpg' %});
+		width: 100%;
+		height: 470px;
+		background-size: cover;
+		background-position: center center;
+		margin-top: 0.5%;
+	}
+	.transp{
+		width: 100%;
+		height: 470px;
+		background-color: lightgrey;
+		opacity: 0.5;
+		border:1px solid #198754;
+	}
+	.transp p{
+		text-align: center;
+		font-size: 60px;
+		font-weight: bold;
+		font-family: Monotype Corsiva;
+		margin-top: 14%;
+		color: #198754;
+	}
+</style>
+<header>
+	<div class="transp">
+		<p>Online Blogs Posting Site | About Us</p>
+	</div>
+</header>
+	<div class="container my-2">
+		<h1 class="text-center">About Us</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, ab temporibus aliquam asperiores neque molestiae ratione mollitia dolores dolor sed atque deserunt, amet blanditiis culpa ullam! Praesentium eaque quia quidem iusto voluptatibus ullam consectetur similique odio! Quis distinctio nulla quasi nihil odit, quisquam laborum voluptatem dolorum accusamus. Facere itaque cumque ad, illo accusamus quidem error. Laborum rem odio esse autem alias consequuntur modi maiores itaque nostrum, et ducimus hic maxime vel id, cupiditate recusandae. Autem, nesciunt. Corrupti necessitatibus veniam sapiente repudiandae distinctio voluptas eaque iusto officiis nam, provident voluptate suscipit debitis odit repellendus optio quos nesciunt animi aspernatur doloribus dolore.</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat veniam laudantium delectus rem praesentium quas a at culpa totam optio? Vel tempora non sed at corporis magni possimus beatae id quaerat nam a hic sunt quisquam assumenda, quidem quod omnis mollitia iure, excepturi velit architecto eius sint ipsa porro. Cum maiores quae sint et mollitia, veniam provident sunt distinctio deserunt rerum odit magnam dolores, perspiciatis laudantium laborum. Sapiente beatae dicta deleniti veritatis. Saepe cum, sunt est tempore iste voluptatem asperiores possimus reprehenderit sit animi. Officiis doloribus, vel, culpa fugiat tempore deleniti, labore ducimus inventore libero omnis veritatis nesciunt nobis odit!</p>
+	</div>
+{% endblock %}
